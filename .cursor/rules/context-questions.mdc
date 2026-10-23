@@ -1,0 +1,11 @@
+---
+description: Nunca assumir contexto; perguntar antes de decisões ambíguas
+alwaysApply: true
+---
+
+# Contexto e perguntas
+
+- Nunca assumir requisitos de tópico, IAM ou custo quando estiverem ambíguos.
+- Antes de `apply`, renomear tópico ou mudar IAM de publisher: perguntar.
+- Preferir 1–2 perguntas críticas por vez; propor opções concretas.
+- Canon: ADRs em `docs/adrs/` deste repositório.
