@@ -1,0 +1,12 @@
+---
+description: Layout Terraform e estilo de docs/HCL (infra-events)
+alwaysApply: true
+---
+
+# Layout e estilo (`infra-events`)
+
+- Root module em **`terraform/`** (não espalhar `.tf` na raiz do repo). Manifests/modules futuros: pastas irmãs sob convenção explícita (`modules/`, etc.), sem segundo root paralelo inventado.
+- CI Terraform usa `working-directory: terraform` e pin da **versão estável recente** do Terraform (atualizar o pin de propósito, não deixar linha antiga por inércia).
+- **Sem comentários narrativos** em `.tf` (o código e os nomes devem bastar). Comentário só em arquivo **placeholder vazio** (ex. `outputs.tf` antes de haver outputs).
+- **README:** lista do que está no escopo (sem tabela “inclui / não inclui”); autocontido — sem pastas fora do Git nem numeração de documentos pessoais.
+- `.gitignore` agrupado por seção (`# Terraform`, `# OS`, …).

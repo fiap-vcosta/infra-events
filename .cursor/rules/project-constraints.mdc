@@ -1,0 +1,13 @@
+---
+description: Restrições Terraform dos tópicos Pub/Sub (infra-events)
+alwaysApply: true
+---
+
+# Restrições do projeto (`infra-events`)
+
+- Escopo: **Terraform** dos **tópicos Pub/Sub** do ciclo de demo. Apply e destroy manuais (`tf-apply` / `tf-destroy`).
+- Sem Cloud SQL, sem GKE e sem subscriptions (subscriptions ficam nos repositórios dos serviços).
+- State remoto. Região **`us-central1`**.
+- Sem secrets no Git.
+- CI barato: `fmt` + `validate`; root module em `terraform/`.
+- README autocontido: sem referências a pastas fora do Git nem a numeração de documentos pessoais.
