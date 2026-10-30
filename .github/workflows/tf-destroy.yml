@@ -1,0 +1,42 @@
+name: tf-destroy
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: terraform-infra-events
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  destroy:
+    name: Terraform destroy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.16.1"
+          terraform_wrapper: false
+
+      - name: Terraform init
+        run: terraform init -input=false
+
+      - name: Terraform destroy
+        run: terraform destroy -input=false -auto-approve
