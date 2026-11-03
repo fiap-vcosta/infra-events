@@ -55,7 +55,7 @@ Este stack não lê o state de outro repositório. Não há org var para id de t
 
 Merge em `main` **nunca** cria tópico.
 
-Os workflows autenticam com as org vars `GCP_WORKLOAD_IDENTITY_PROVIDER` e `GCP_SERVICE_ACCOUNT_EMAIL`. `project_id` e `region` são defaults em [`terraform/variables.tf`](terraform/variables.tf).
+Os callers em [`.github/workflows/`](.github/workflows/) usam [`fiap-vcosta/actions`](https://github.com/fiap-vcosta/actions) e autenticam com as org vars `GCP_WORKLOAD_IDENTITY_PROVIDER` e `GCP_SERVICE_ACCOUNT_EMAIL`. `project_id` e `region` são defaults em [`terraform/variables.tf`](terraform/variables.tf).
 
 ## Roles da SA `github-actions` (least-privilege)
 
