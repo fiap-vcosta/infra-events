@@ -3,6 +3,10 @@ name: tf-destroy
 on:
   workflow_dispatch:
 
+concurrency:
+  group: terraform-infra-events
+  cancel-in-progress: false
+
 permissions:
   contents: read
   id-token: write
@@ -10,5 +14,3 @@ permissions:
 jobs:
   destroy:
     uses: fiap-vcosta/actions/.github/workflows/tf-destroy.yml@main
-    with:
-      concurrency_group: terraform-infra-events
