@@ -81,17 +81,15 @@ O `infra-bootstrap` já está aplicado e não entra neste ciclo. O destroy daqui
 
 Subida:
 
-1. `infra-db` → **tf-apply**, em paralelo com `infra-k8s` → **tf-apply**.
-2. Este repo → Actions → **tf-apply** (os tópicos existem antes das subscriptions).
-3. **tf-apply** de cada serviço (subscription e dead-letter no repo do serviço).
-4. Deploy dos serviços.
+1. `infra-k8s` → **tf-apply**, em paralelo com este repo → **tf-apply** (tópicos antes das subscriptions).
+2. **tf-apply** de cada serviço (Cloud SQL nos SQL + subscription/dead-letter).
+3. Deploy dos serviços.
 
 Descida:
 
-1. **tf-destroy** de cada serviço (subscriptions saem primeiro; tópico com subscription não apaga).
+1. **tf-destroy** de cada serviço (subscriptions e Cloud SQL saem primeiro; tópico com subscription não apaga).
 2. Este repo → **tf-destroy**.
 3. `infra-k8s` → **tf-destroy**.
-4. `infra-db` → **tf-destroy**.
 
 ## Agentes
 
