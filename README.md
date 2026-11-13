@@ -12,7 +12,7 @@ Terraform dos tópicos Pub/Sub da oficina na GCP — Tech Challenge FIAP ([fiap-
 
 Quem publica recebe `roles/pubsub.publisher` no Terraform do próprio serviço. Subscription, `roles/pubsub.subscriber` e o tópico de dead-letter nascem no Terraform do serviço que consome. Este stack não cria subscription nem binding de IAM.
 
-Payloads e chaves de idempotência: [`e2e` / `docs/eventos.md`](https://github.com/fiap-vcosta/e2e/blob/main/docs/eventos.md).
+Payloads e chaves de idempotência: [`e2e` / `docs/eventos.md`](https://github.com/fiap-vcosta/e2e/blob/main/docs/eventos.md). Consumo: **pull** por background worker nos serviços ([ADR 001](docs/adrs/001-pubsub-pull.md)).
 
 Root module: [`terraform/`](terraform/).
 
@@ -53,7 +53,11 @@ Este stack não lê o state de outro repositório. Não há org var para id de t
 | **CI** `plan` (OIDC) | PR | Sim |
 | **`tf-apply` / `tf-destroy`** | Janela da demo | Só manual (`workflow_dispatch`) |
 
-Merge em `main` **nunca** cria tópico.
+Merge em `main` **nunca** cria tópico. O gatilho de apply/destroy é **manual de propósito** (custo): CI e imagens seguem automáticos nos serviços; a nuvem da demo sobe sob demanda (`demo-up` no [`e2e`](https://github.com/fiap-vcosta/e2e)). Narrativa canônica: [`e2e` ADR 006](https://github.com/fiap-vcosta/e2e/blob/main/docs/adrs/006-deploy-demo-manuais-custo.md).
+
+## ADRs
+
+Ver [`docs/adrs/`](docs/adrs/).
 
 Os callers em [`.github/workflows/`](.github/workflows/) usam [`fiap-vcosta/actions`](https://github.com/fiap-vcosta/actions) e autenticam com as org vars `GCP_WORKLOAD_IDENTITY_PROVIDER` e `GCP_SERVICE_ACCOUNT_EMAIL`. `project_id` e `region` são defaults em [`terraform/variables.tf`](terraform/variables.tf).
 
